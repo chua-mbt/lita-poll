@@ -1,0 +1,53 @@
+en:
+  lita:
+    handlers:
+      poll_handler:
+        help:
+          list:
+            usage: "poll list"
+            description: "List existing polls"
+          clear:
+            usage: "poll clear"
+            description: "Clear existing polls"
+          make:
+            usage: "poll make [topic]"
+            description: "Create a new poll on [topic]"
+          option:
+            usage: "poll option [pollId] [option]"
+            description: "Add [option] to poll with [pollId]"
+          info:
+            usage: "poll info [pollId]"
+            description: "Shows information on poll with [pollId]"
+          vote:
+            usage: "poll vote [pollId] [optNum]"
+            description: "Vote for [optNum] on poll with [pollId]"
+          tally:
+            usage: "poll tally [pollId]"
+            description: "Tally poll with [pollId]"
+          complete:
+            usage: "poll complete [pollId]"
+            description: "End poll with [pollId]"
+        replies:
+          general:
+            poll_not_found: "Poll with id '%{id}' not found."
+          list:
+            no_polls: "No polls currently exist."
+            header: "Active polls:"
+            poll: "%{poll_id} : %{poll_topic}"
+          clear:
+            success: "All polls cleared."
+          make:
+            success: "Poll on '%{poll_topic}' created with id '%{poll_id}'."
+          option:
+            success: "New option '%{option}' for poll '%{poll_id}'!"
+          info:
+            header: "Topic: %{poll_topic}"
+            option: "%{idx} : %{option}"
+          vote:
+            not_found: "Selected option does not exist for specified poll."
+            success: "Vote for '%{option}' registered."
+          tally:
+            header: "Tallied votes:"
+            option: "%{option} : %{votes}"
+          complete:
+            success: "Poll removed."
