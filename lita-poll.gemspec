@@ -6,6 +6,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Plugin that enables polling functionality for a lita bot.}
   spec.license       = "MIT"
   spec.metadata      = { "lita_plugin_type" => "handler" }
+  spec.homepage      = "https://github.com/chua-mbt/lita-poll"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
