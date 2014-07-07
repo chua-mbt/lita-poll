@@ -31,7 +31,7 @@ class Poll
     @options.push(opt)
   end
 
-  def valid_vote(optNum)
+  def valid_vote?(optNum)
     optNum-1 < @options.length
   end
 
