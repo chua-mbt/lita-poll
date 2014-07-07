@@ -30,7 +30,7 @@ module Lita
 
       route /^poll make (.+)$/, :make, help: {
         t("help.make.usage") => t("help.make.description")
-      }, restrict_to: "poll_admins"
+      }
       def make(response)
         made = Poll.new(response.matches.pop[0])
         redis.set(made.id, made.to_json)
