@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-poll"
-  spec.version       = "1.0.1"
+  spec.version       = "1.0.2"
   spec.authors       = ["Michael Chua"]
   spec.email         = ["chua.mbt@gmail.com"]
   spec.summary       = %q{Plugin that enables polling functionality for a lita bot.}
