@@ -92,7 +92,7 @@ module Lita
           response.reply(t("replies.general.poll_not_found", id: id))
         else
           poll = Poll.json_create(JSON.parse(poll))
-          if poll.valid_vote(optNum)
+          if poll.valid_vote?(optNum)
             poll.vote(response.user, optNum)
             redis.set(poll.id, poll.to_json)
             response.reply_privately(t(
