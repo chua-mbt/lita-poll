@@ -68,7 +68,7 @@ module Lita
           poll = Poll.json_create(JSON.parse(poll))
           idx = 0
           response.reply(t("replies.info.header", poll_topic: poll.topic))
-          every(1) do |timer|
+          every(0.5) do |timer|
             if idx >= poll.options.length
               timer.stop
             else
@@ -123,7 +123,7 @@ module Lita
 
           idx = 0
           response.reply(t("replies.tally.header"))
-          every(1) do |timer|
+          every(0.5) do |timer|
             if idx >= poll.options.length
               timer.stop
             else
