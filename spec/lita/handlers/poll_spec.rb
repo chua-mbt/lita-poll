@@ -15,7 +15,7 @@ describe Lita::Handlers::PollHandler, lita_handler: true do
   let(:poll_user2) { Lita::User.create(3, name: "Poll User2") }
 
   it { is_expected.to route_command("poll list").to(:list) }
-  topics.map { |topic|
+  topics.each { |topic|
     poll = Poll.new(topic)
     it { is_expected.to route_command("poll make "+topic).to(:make) }
     it { is_expected.to route_command("poll option "+poll.id+" Option 1").to(:option) }
@@ -42,13 +42,14 @@ describe Lita::Handlers::PollHandler, lita_handler: true do
       send_command('poll vote '+dummy_poll.id+' 1', as: poll_user1)
       send_command('poll info '+dummy_poll.id, as: poll_user1)
       send_command('poll tally '+dummy_poll.id, as: poll_user1)
-      replies.map { |reply| expect(reply).to eq(ph::translate("replies.general.poll_not_found", id: dummy_poll.id))
+      replies.each { |reply|
+        expect(reply).to eq(ph::translate("replies.general.poll_not_found", id: dummy_poll.id))
       }
     end
 
     it "make and use polls" do
       # make
-      topics.map { |topic|
+      topics.each { |topic|
         poll = Poll.new(topic)
         send_command('poll make '+topic, as: poll_user1)
         success = ph::translate("replies.make.success", poll_id: poll.id, poll_topic: poll.topic)
@@ -58,13 +59,13 @@ describe Lita::Handlers::PollHandler, lita_handler: true do
       send_command('poll list', as: poll_user2)
       list_reply = replies.last(topics.length+1)
       expect(list_reply.first).to eq(ph::translate("replies.list.header"))
-      topics.map { |topic, reply|
+      topics.each { |topic, reply|
         poll = Poll.new(topic)
         success = ph::translate("replies.list.poll", poll_id: poll.id, poll_topic: poll.topic)
         expect(list_reply.drop(1)).to include(success)
       }
       # add options
-      options.map { |option|
+      options.each { |option|
         topic = topics.first
         poll = Poll.new(topic)
         send_command('poll option '+poll.id+' '+option, as: poll_user1)
@@ -76,7 +77,7 @@ describe Lita::Handlers::PollHandler, lita_handler: true do
       sleep(2)
       info_reply = replies.last(options.length+1)
       expect(info_reply.first).to eq(ph::translate("replies.info.header", poll_topic: topics.first))
-      options.zip(info_reply.drop(1)).each_with_index.map { |pair, idx|
+      options.zip(info_reply.drop(1)).each_with_index.each { |pair, idx|
         option = pair.first
         reply = pair.last
         success = ph::translate("replies.info.option", idx: idx+1, option: option)
@@ -112,7 +113,7 @@ describe Lita::Handlers::PollHandler, lita_handler: true do
 
   describe "poll administration" do
     it "complete poll" do
-      topics.map { |topic|
+      topics.each { |topic|
         poll = Poll.new(topic)
         send_command('poll make '+topic, as: poll_user1)
       }
@@ -122,11 +123,10 @@ describe Lita::Handlers::PollHandler, lita_handler: true do
       sleep(2)
       list_reply = replies.last(topics.length)
       expect(list_reply.first).to eq(ph::translate("replies.list.header"))
-      puts list_reply
     end
 
     it "clear polls" do
-      topics.map { |topic|
+      topics.each { |topic|
         poll = Poll.new(topic)
         send_command('poll make '+topic, as: poll_user1)
       }
